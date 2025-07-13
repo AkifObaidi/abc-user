@@ -23,8 +23,5 @@ export default {
   },
   deleteUser(id) {
     return client.delete(`/users/${id}`)
-  },
-  checkEmailUnique(email) {
-    return client.get('/users/check-email', { params: { email } })
-  },
+  }
 }
