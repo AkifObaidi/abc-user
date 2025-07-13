@@ -1,0 +1,22 @@
+# Global
+.DS_Store
+.env
+.env.local
+*.log
+
+#backend
+abc-backend/bin/
+abc-backend/coverage.out
+abc-backend/.env
+abc-backend/.idea/
+abc-backend/go.sum
+abc-backend/go.mod
+abc-backend/vendor/
+
+#frontend
+abc-frontend/node_modules/
+abc-frontend/dist/
+abc-frontend/.env
+abc-frontend/.vite/
+abc-frontend/.output/
+abc-frontend/.idea/

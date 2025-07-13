@@ -1,0 +1,44 @@
+.new-user-page {
+    display: flex;
+    justify-content: center;
+}
+
+.new-user-container {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.new-user-container .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+}
+
+.new-user-container h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #303133;
+}
+
+.form-card {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.el-form {
+    padding: 10px;
+}
+
+.el-form-item {
+    margin-bottom: 22px;
+}
+
+.el-form-item .el-button {
+    margin-right: 10px;
+}

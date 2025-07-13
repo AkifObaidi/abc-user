@@ -1,0 +1,30 @@
+.user-info-page {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.user-info-page .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.user-info-page h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #303133;
+}
+
+.info-card {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.margin-top {
+    margin-top: 20px;
+}
