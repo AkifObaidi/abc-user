@@ -5,18 +5,18 @@
 *.log
 
 #backend
-abc-backend/bin/
-abc-backend/coverage.out
-abc-backend/.env
-abc-backend/.idea/
-abc-backend/go.sum
-abc-backend/go.mod
-abc-backend/vendor/
+abc-user-backend/bin/
+abc-user-backend/coverage.out
+abc-user-backend/.env
+abc-user-backend/.idea/
+abc-user-backend/go.sum
+abc-user-backend/go.mod
+abc-user-backend/vendor/
 
 #frontend
-abc-frontend/node_modules/
-abc-frontend/dist/
-abc-frontend/.env
-abc-frontend/.vite/
-abc-frontend/.output/
-abc-frontend/.idea/
+abc-user-frontend/node_modules/
+abc-user-frontend/dist/
+abc-user-frontend/.env
+abc-user-frontend/.vite/
+abc-user-frontend/.output/
+abc-user-frontend/.idea/
