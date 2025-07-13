@@ -1,47 +1,47 @@
 <script setup>
 import './UserInfoView.css'
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { ElMessage } from 'element-plus';
-import userApi from '@/api/users';
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import userApi from '@/api/users'
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
-const user = ref(null);
-const loading = ref(true);
-const error = ref(null);
+const user = ref(null)
+const loading = ref(true)
+const error = ref(null)
 
-const userId = route.params.id;
+const userId = route.params.id
 
 const loadUser = async () => {
-  loading.value = true;
-  error.value = null;
+  loading.value = true
+  error.value = null
   try {
-    const response = await userApi.getUser(userId);
-    user.value = response.data;
+    const response = await userApi.getUser(userId)
+    user.value = response.data
   } catch (err) {
-    error.value = 'Failed to load user information.';
-    ElMessage.error('Failed to load user information.');
-    console.error('Error loading user:', err);
+    error.value = 'Failed to load user information.'
+    ElMessage.error('Failed to load user information.')
+    console.error('Error loading user:', err)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 
 const goBack = () => {
-  router.push('/');
-};
+  router.push('/')
+}
 
 onMounted(() => {
   if (userId) {
-    loadUser();
+    loadUser()
   } else {
-    error.value = 'User ID not provided.';
-    ElMessage.error('User ID not provided in the URL.');
-    loading.value = false;
+    error.value = 'User ID not provided.'
+    ElMessage.error('User ID not provided in the URL.')
+    loading.value = false
   }
-});
+})
 </script>
 
 <template>
@@ -56,16 +56,12 @@ onMounted(() => {
       title="Error"
       type="error"
       :closable="false"
-      style="margin-bottom: 1rem;"
+      style="margin-bottom: 1rem"
     />
 
     <el-card v-loading="loading" class="info-card" shadow="hover">
       <template v-if="user">
-        <el-descriptions
-          class="margin-top"
-          :column="1"
-          border
-        >
+        <el-descriptions class="margin-top" :column="1" border>
           <el-descriptions-item label="Name">{{ user.name }}</el-descriptions-item>
           <el-descriptions-item label="Email">{{ user.email }}</el-descriptions-item>
           <el-descriptions-item label="Age">{{ user.age }}</el-descriptions-item>

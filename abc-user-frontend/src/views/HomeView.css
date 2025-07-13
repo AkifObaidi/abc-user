@@ -1,36 +1,64 @@
-.home {
-    max-width: 1800px;
-    margin: auto;
-    padding: 2rem;
-    min-height: 100vh;
+.home .header {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 10px;
+
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
+.home .header h1 {
+  justify-self: start;
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.8rem;
+  white-space: nowrap;
 }
 
-.header h1 {
-    font-size: 2rem;
-    margin-bottom: 0.2rem;
+.home .header .el-input {
+  justify-self: center;
+  width: 100%;
+  max-width: 500px;
 }
 
-.table-card {
-    padding: 1rem;
-    border-radius: 12px;
+.home .header .el-input input {
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1.1rem;
+  transition: border-color 0.2s ease;
 }
 
-.table-footer {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+.home .header .el-input input:focus {
+  border-color: #409eff;
+  box-shadow: 0 0 8px rgba(64, 158, 255, 0.6);
 }
 
-.user-count {
-    font-size: 0.95rem;
-    color: #666;
+.home .header .el-button {
+  justify-self: end;
+  white-space: nowrap;
+  padding: 10px 24px;
+  font-size: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 550px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1.8px solid #bbb;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  color: #333;
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.search-input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.search-input:focus {
+  border-color: #3a86ff;
+  box-shadow: 0 0 5px rgba(58, 134, 255, 0.5);
+  outline: none;
 }

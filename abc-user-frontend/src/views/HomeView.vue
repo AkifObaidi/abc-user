@@ -1,11 +1,11 @@
 <script setup>
 import './HomeView.css'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import userApi from '@/api/users'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import UserForm from '@/components/UserForm.vue'
 import { useRouter } from 'vue-router'
-import { View, Edit, Delete } from '@element-plus/icons-vue';
+import { View, Edit, Delete } from '@element-plus/icons-vue'
 
 const users = ref([])
 const loading = ref(false)
@@ -13,6 +13,7 @@ const error = ref(null)
 const total = ref(0)
 const page = ref(1)
 const pageSize = ref(15)
+const search = ref('')
 
 const showEditModal = ref(false)
 const editingUser = ref(null)
@@ -24,7 +25,11 @@ const loadUsers = async () => {
   loading.value = true
   error.value = null
   try {
-    const response = await userApi.getUsers({ page: page.value, limit: pageSize.value })
+    const response = await userApi.getUsers({
+      page: page.value,
+      limit: pageSize.value,
+      search: search.value.trim(),
+    })
     users.value = response.data.data
     total.value = response.data.total || response.data.data.length
   } catch (err) {
@@ -35,6 +40,13 @@ const loadUsers = async () => {
     loading.value = false
   }
 }
+
+watch(search, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    page.value = 1
+    loadUsers()
+  }
+})
 
 const handleDelete = async (user) => {
   try {
@@ -79,7 +91,7 @@ const submitEdit = async (updatedUser) => {
 }
 
 const handleAdd = () => {
-  router.push('/new');
+  router.push('/new')
 }
 
 onMounted(loadUsers)
@@ -88,7 +100,15 @@ onMounted(loadUsers)
 <template>
   <div class="home">
     <div class="header">
-      <h1>ABC User Management</h1>
+      <h1>ABC User</h1>
+      <input
+        v-model="search"
+        placeholder="Search by name or email"
+        clearable
+        class="search-input"
+        @clear="loadUsers"
+        @keyup.enter="loadUsers"
+      />
       <el-button type="primary" @click="handleAdd">Add User</el-button>
     </div>
 
@@ -97,7 +117,7 @@ onMounted(loadUsers)
       title="Error"
       type="error"
       :closable="false"
-      style="margin-bottom: 1rem;"
+      style="margin: 1rem 0"
     />
 
     <el-card v-loading="loading" class="table-card" shadow="hover">
@@ -109,27 +129,40 @@ onMounted(loadUsers)
           prop="createdAt"
           label="Created"
           width="210"
-          :formatter="row => new Date(row.createdAt).toLocaleString()"
+          :formatter="(row) => new Date(row.createdAt).toLocaleString()"
         />
         <el-table-column
           prop="updatedAt"
           label="Updated"
           width="210"
-          :formatter="row => new Date(row.updatedAt).toLocaleString()"
+          :formatter="(row) => new Date(row.updatedAt).toLocaleString()"
         />
         <el-table-column label="Actions" width="180">
           <template #default="{ row }">
-            <el-button type="info" :icon="View" circle @click="() => router.push(`/user/${row.id}`)"></el-button> 
-            <el-button type="primary" :icon="Edit" circle @click="() => openEditModal(row)"></el-button> 
-            <el-button type="danger" :icon="Delete" circle @click="() => handleDelete(row)"></el-button>
+            <el-button
+              type="info"
+              :icon="View"
+              circle
+              @click="() => router.push(`/user/${row.id}`)"
+            />
+            <el-button
+              type="primary"
+              :icon="Edit"
+              circle
+              @click="() => openEditModal(row)"
+            />
+            <el-button
+              type="danger"
+              :icon="Delete"
+              circle
+              @click="() => handleDelete(row)"
+            />
           </template>
         </el-table-column>
       </el-table>
 
-      <div class="table-footer">
-        <div class="user-count">
-          Showing {{ users.length }} of {{ total }} users
-        </div>
+      <div class="table-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+        <div class="user-count">Showing {{ users.length }} of {{ total }} users</div>
 
         <el-pagination
           background
@@ -137,7 +170,12 @@ onMounted(loadUsers)
           :total="total"
           :page-size="pageSize"
           :current-page="page"
-          @current-change="newPage => { page = newPage; loadUsers() }"
+          @current-change="
+            (newPage) => {
+              page = newPage
+              loadUsers()
+            }
+          "
         />
       </div>
     </el-card>
@@ -151,7 +189,7 @@ onMounted(loadUsers)
       <UserForm
         v-if="editingUser"
         :modelValue="editingUser"
-        @update:modelValue="val => editingUser.value = val"
+        @update:modelValue="(val) => (editingUser.value = val)"
         :loading="formLoading"
         @submit="submitEdit"
         @cancel="closeEditModal"
